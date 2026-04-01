@@ -1,0 +1,238 @@
+.font-display {
+  font-family: 'Orbitron', sans-serif;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Theme Transitions ── */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition: background-color 0.4s ease,
+              color 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.4s ease;
+}
+
+/* ── Forest Theme (Dark) ── */
+:root:has(input.theme-controller[value=forest]:checked),
+[data-theme="forest"] {
+  color-scheme: dark;
+  --color-base-100: oklch(20.84% 0.008 17.911);
+  --color-base-200: oklch(18.522% 0.007 17.911);
+  --color-base-300: oklch(16.203% 0.007 17.911);
+  --color-base-content: oklch(83.768% 0.001 17.911);
+  --color-primary: oklch(68.628% 0.185 148.958);
+  --color-primary-content: oklch(0% 0 0);
+  --color-secondary: oklch(69.776% 0.135 168.327);
+  --color-secondary-content: oklch(13.955% 0.027 168.327);
+  --color-accent: oklch(70.628% 0.119 185.713);
+  --color-accent-content: oklch(14.125% 0.023 185.713);
+  --color-neutral: oklch(30.698% 0.039 171.364);
+  --color-neutral-content: oklch(86.139% 0.007 171.364);
+  --color-info: oklch(72.06% 0.191 231.6);
+  --color-info-content: oklch(0% 0 0);
+  --color-success: oklch(64.8% 0.15 160);
+  --color-success-content: oklch(0% 0 0);
+  --color-warning: oklch(84.71% 0.199 83.87);
+  --color-warning-content: oklch(0% 0 0);
+  --color-error: oklch(71.76% 0.221 22.18);
+  --color-error-content: oklch(0% 0 0);
+  --radius-selector: 1rem;
+  --radius-field: 2rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+:root:has(input.theme-controller[value=retro]:checked),[data-theme="retro"] {
+color-scheme: light;
+--color-base-100: oklch(91.637% 0.034 90.515);
+--color-base-200: oklch(88.272% 0.049 91.774);
+--color-base-300: oklch(84.133% 0.065 90.856);
+--color-base-content: oklch(41% 0.112 45.904);
+--color-primary: oklch(80% 0.114 19.571);
+--color-primary-content: oklch(39% 0.141 25.723);
+--color-secondary: oklch(64.745% 0.2124 301.385);
+--color-secondary-content: oklch(44% 0.119 151.328);
+--color-accent: oklch(68% 0.162 75.834);
+--color-accent-content: oklch(41% 0.112 45.904);
+--color-neutral: oklch(44% 0.011 73.639);
+--color-neutral-content: oklch(86% 0.005 56.366);
+--color-info: oklch(58% 0.158 241.966);
+--color-info-content: oklch(96% 0.059 95.617);
+--color-success: oklch(51% 0.096 186.391);
+--color-success-content: oklch(96% 0.059 95.617);
+--color-warning: oklch(64% 0.222 41.116);
+--color-warning-content: oklch(96% 0.059 95.617);
+--color-error: oklch(70% 0.191 22.216);
+--color-error-content: oklch(40% 0.123 38.172);
+--radius-selector: 0.25rem;
+--radius-field: 0.25rem;
+--radius-box: 0.5rem;
+--size-selector: 0.25rem;
+--size-field: 0.25rem;
+--border: 1px;
+--depth: 0;
+--noise: 0;
+}
+
+/* ── Glass Header ── */
+.glass-header {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background: oklch(from var(--color-base-100) l c h / 0.7);
+  border-bottom: 1px solid oklch(from var(--color-primary) l c h / 0.15);
+  box-shadow: 0 4px 30px oklch(from var(--color-primary) l c h / 0.08);
+}
+
+/* ── Toggle Icon Fallback (when swap styles are unavailable) ── */
+.swap .swap-on {
+  display: none;
+}
+
+.swap input:checked ~ .swap-on {
+  display: inline-flex;
+}
+
+.swap input:checked ~ .swap-off {
+  display: none;
+}
+
+/* ── Card Sections ── */
+.card-section {
+  border: 1px solid oklch(from var(--color-primary) l c h / 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.card-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    oklch(from var(--color-primary) l c h / 0.6),
+    oklch(from var(--color-secondary) l c h / 0.6),
+    transparent
+  );
+}
+
+/* ── Rules List ── */
+.rules-list li {
+  padding: 1rem 0;
+  border-bottom: 3px solid oklch(from var(--color-base-content) l c h / 0.06);
+  margin:0.5rem 0.5rem 0 0;
+}
+
+.rules-list li:last-child {
+  border-bottom: none;
+}
+
+#rules-panel .card-body {
+  padding-bottom: 2rem;
+}
+
+#rules-panel .card-actions {
+  margin-top: 1.25rem;
+}
+
+/* ── Glow Button ── */
+.glow-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    oklch(from var(--color-primary) l c h / 0.15) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.glow-btn:hover::after {
+  opacity: 1;
+}
+
+.glow-btn:active {
+  transform: scale(0.97);
+}
+
+/* ── Guess Input Glow ── */
+.guess-input-glow {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.guess-input-glow:focus {
+  box-shadow:
+    0 0 0 3px oklch(from var(--color-primary) l c h / 0.15),
+    0 0 20px oklch(from var(--color-primary) l c h / 0.1);
+}
+
+/* ── Result Modal ── */
+.result-modal-box {
+  border: 1px solid oklch(from var(--color-primary) l c h / 0.2);
+  box-shadow:
+    0 25px 60px oklch(from var(--color-base-100) l c h / 0.5),
+    0 0 40px oklch(from var(--color-primary) l c h / 0.1);
+}
+
+/* ── Confetti Container ── */
+.confetti-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  opacity: 0;
+}
+
+/* ── Number input – hide spin buttons ── */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* ── Responsive Fine-Tuning ── */
+@media (max-width: 480px) {
+  #game-title {
+    font-size: 1.1rem;
+  }
+
+  .card-body {
+    padding: 1.25rem;
+  }
+}

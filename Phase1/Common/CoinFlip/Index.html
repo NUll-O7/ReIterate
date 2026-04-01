@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en" data-theme="autumn">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coin Flip Streak</title>
+  <meta name="description" content="Guess the coin flip sequence and build your streak!" />
+
+  <!-- Font Awesome Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <!-- Tailwind CSS v4 (browser CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- DaisyUI v5 -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+  <!-- Motion.js for animations -->
+  <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="./index.css" />
+</head>
+
+<body class="min-h-screen flex flex-col items-center bg-base-200 transition-colors duration-500">
+
+  <!-- ============================== -->
+  <!--            HEADER              -->
+  <!-- ============================== -->
+  <header class="w-full navbar bg-base-100 shadow-lg px-6 py-3">
+    <!-- Title -->
+    <div class="flex-1">
+      <h1 class="text-2xl font-bold text-primary tracking-wide">
+        <i class="fa-solid fa-coins mr-2"></i>Coin Flip Streak
+      </h1>
+    </div>
+    <!-- Theme Toggle (Autumn ↔ Coffee) -->
+    <div class="flex-none">
+      <label class="swap swap-rotate btn btn-ghost btn-circle" id="theme-toggle-label">
+        <!-- Hidden checkbox drives the swap -->
+        <input type="checkbox" id="toggle-theme" />
+        <!-- Sun icon (shown when light / autumn theme is active) -->
+        <i class="fa-solid fa-sun swap-off text-warning text-xl"></i>
+        <!-- Moon icon (shown when dark / coffee theme is active) -->
+        <i class="fa-solid fa-moon swap-on text-accent text-xl"></i>
+      </label>
+    </div>
+  </header>
+
+  <!-- ============================== -->
+  <!--          MAIN CONTENT          -->
+  <!-- ============================== -->
+  <main class="flex flex-col items-center gap-8 w-full max-w-lg px-4 py-10">
+
+    <!-- ---- How to Play Card ---- -->
+    <div class="card bg-base-100 shadow-xl w-full card-glow">
+      <div class="card-body">
+        <h2 class="card-title text-secondary">
+          <i class="fa-solid fa-circle-info mr-1"></i>How to Play
+        </h2>
+        <ul class="list-disc list-inside text-base-content/80 space-y-1 text-sm">
+          <li>A coin is flipped <b>1 times</b> to form a sequence</li>
+          <li>Try to <b>guess</b> the sequence before revealing it</li>
+          <li>Correct guess increases your score &amp; streak</li>
+          <li>Score is <b>correct guesses / total guesses</b></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ---- Score & Streak Stats ---- -->
+    <div class="stats shadow-lg w-full stats-glow bg-base-100">
+      <div class="stat place-items-center">
+        <div class="stat-title">Score</div>
+        <div class="stat-value text-primary" id="score">0/0</div>
+      </div>
+      <div class="stat place-items-center">
+        <div class="stat-title">Streak</div>
+        <div class="stat-value text-secondary" id="streak">0</div>
+        <div class="stat-desc" id="streak-label">Current streak</div>
+      </div>
+    </div>
+
+    <!-- ---- Game Input Card ---- -->
+    <div class="card bg-base-100 shadow-xl w-full card-glow">
+      <div class="card-body items-center text-center gap-4">
+        <!-- Coin Animation Container — 1 coins for the 1-flip sequence -->
+        <div id="coin-container" class="flex gap-4 my-2">
+          <div class="coin-wrapper">
+            <div class="coin" data-index="0">
+              <div class="coin-face coin-heads">H</div>
+              <div class="coin-face coin-tails">T</div>
+            </div>
+          </div>
+          <!-- <div class="coin-wrapper">
+            <div class="coin" data-index="1">
+              <div class="coin-face coin-heads">H</div>
+              <div class="coin-face coin-tails">T</div>
+            </div>
+          </div> -->
+          <!-- <div class="coin-wrapper">
+            <div class="coin" data-index="2">
+              <div class="coin-face coin-heads">H</div>
+              <div class="coin-face coin-tails">T</div>
+            </div>
+          </div> -->
+        </div>
+
+        <!-- Guess Input -->
+        <label class="label text-sm font-medium text-base-content/70">
+          Enter your 1-character guess (H or T)
+        </label>
+        <div class="join w-full">
+          <input type="text" id="user-guess"
+            class="input input-bordered join-item flex-1 text-center tracking-[0.5em] uppercase text-lg font-mono"
+            placeholder="e.g. H" maxlength="1" />
+          <button id="submit-guess" class="btn btn-primary join-item">
+            <i class="fa-solid fa-dice mr-1"></i>Guess
+          </button>
+        </div>
+
+        <!-- Result Display (hidden until first guess) -->
+        <div id="result-container" class="hidden w-full mt-2">
+          <div class="divider">Result</div>
+          <p id="result" class="text-xl font-bold"></p>
+          <p id="generated-sequence" class="text-base-content/60 text-sm mt-1"></p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- Scripts -->
+  <script src="./logic.js"></script>
+  <script src="./animations.js"></script>
+</body>
+
+</html>

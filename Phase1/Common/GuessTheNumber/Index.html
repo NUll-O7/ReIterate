@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" data-theme="retro">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guess the Number</title>
+  <meta name="description" content="A stylish number guessing game with cyberpunk and forest themes" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> <!-- Preconnect to Google Fonts which are launched on a differenct servers-->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="./guessTheNumber.css" />
+</head>
+
+<body class="min-h-screen flex flex-col items-center theme-transition">
+
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <header id="header" class="navbar glass-header w-full px-6 py-3 flex justify-between items-center sticky top-0 z-50">
+    <div class="flex items-center gap-3">
+      <i class="fa-solid fa-hashtag text-primary text-2xl"></i>
+      <h1 id="game-title" class="font-display text-2xl font-bold tracking-wider text-primary">
+        GUESS THE NUMBER
+      </h1>
+    </div>
+
+    <!-- Theme Toggle (DaisyUI swap) -->
+    <label class="swap swap-rotate cursor-pointer">
+      <input type="checkbox" id="theme-toggle" class="theme-controller hidden" value="forest" />
+      <!-- Sun icon – shown when unchecked (retro/light) -->
+      <i class="fa-solid fa-sun swap-off text-xl text-warning"></i>
+      <!-- Moon icon – shown when checked (forest/dark) -->
+      <i class="fa-solid fa-moon swap-on text-xl text-accent"></i>
+    </label>
+  </header>
+
+  <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+  <main class="flex-1 w-full max-w-lg flex flex-col items-center gap-12 px-8 py-8">
+
+    <!-- SECTION 1: Rules Panel -->
+    <section id="rules-panel" class="card card-section bg-base-200 shadow-xl w-full m-auto mx-auto">
+      <div class="card-body items-center text-center gap-10">
+        <h2 class="card-title text-secondary font-display tracking-wide">
+          <i class="fa-solid fa-scroll mr-2"></i>How To Play
+        </h2>
+        <ul class="rules-list text-base-content/80 text-sm space-y-2 text-left w-full pl-4">
+          <li><i class="fa-solid fa-angle-right text-primary mr-2"></i>I'm thinking of a number between <strong
+              class="text-primary">1</strong> and <strong class="text-primary">100</strong>.</li>
+          <li><i class="fa-solid fa-angle-right text-primary mr-2"></i>You have <strong class="text-accent">10
+              attempts</strong> to guess it.</li>
+          <li><i class="fa-solid fa-angle-right text-primary mr-2"></i>After each guess, I'll tell you if it's <strong
+              class="text-warning">higher</strong> or <strong class="text-error">lower</strong>.</li>
+          <li><i class="fa-solid fa-angle-right text-primary mr-2"></i>Guess it right and you <strong
+              class="text-success">win</strong>!</li>
+        </ul>
+        <div class="card-actions mt-2">
+          <button id="start-btn" class="btn btn-primary btn-wide gap-2 glow-btn">
+            <i class="fa-solid fa-play"></i> Start Game
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Game Area -->
+    <section id="game-area" class="card card-section bg-base-200 shadow-xl w-full hidden">
+      <div class="card-body items-center text-center gap-5">
+        <h2 class="card-title text-secondary font-display tracking-wide">
+          <i class="fa-solid fa-gamepad mr-2"></i>Make Your Guess
+        </h2>
+        <div class="form-control w-full max-w-xs">
+          <input type="number" id="guess-input" min="1" max="100" placeholder="Enter 1 – 100"
+           class="fa-solid fa-check"></i> Guess!
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Feedback Area -->
+    <section id="feedback-area" class="card card-section bg-base-200/60 shadow-md w-full hidden">
+      <div cl  class="input input-bordered input-primary w-full text-center text-lg font-semibold guess-input-glow" />
+        </div>
+        <button id="confirm-btn" class="btn btn-accent btn-wide gap-2 glow-btn">
+          <iass="card-body items-center text-center py-4">
+        <p id="feedback-text" class="text-base-content/70 text-sm font-medium">
+          <i class="fa-solid fa-circle-info mr-1 text-info"></i>
+          <span>Waiting for your guess…</span>
+        </p>
+        <p id="attempts-text" class="text-xs text-base-content/50 mt-1">
+          Attempts: <span id="attempts-count" class="font-bold text-primary">0</span> / 10
+        </p>
+      </div>
+    </section>
+
+    <!-- SECTION 4: Stats / Range Hint (optional extra div) -->
+    <section id="range-hint" class="w-full flex justify-between text-xs text-base-content/40 px-2 hidden">
+      <span id="range-low" class="badge badge-outline badge-sm">Low: 1</span>
+      <span class="text-base-content/20">|</span>
+      <span id="range-high" class="badge badge-outline badge-sm">High: 100</span>
+    </section>
+
+    <!-- SECTION 5: Result Popup (Modal) -->
+    <dialog id="result-popup" class="modal">
+      <div class="modal-box result-modal-box text-center relative overflow-hidden">
+        <!-- Confetti container injected by JS -->
+        <div id="confetti-container" class="confetti-container"></div>
+
+        <div class="relative z-10">
+          <div id="result-icon" class="text-6xl mb-4">
+            <!-- Icon set dynamically -->
+            <i class="fa-solid fa-trophy text-warning"></i>
+          </div>
+          <h3 id="result-title" class="font-display text-2xl font-bold mb-2 text-success">
+            🎉 Correct!
+          </h3>
+          <p id="result-message" class="text-base-content/70 mb-6">
+            You guessed it in <strong class="text-primary">5</strong> attempts!
+          </p>
+          <form method="dialog">
+            <button id="result-close-btn" class="btn btn-primary btn-wide gap-2 glow-btn">
+              <i class="fa-solid fa-rotate-right"></i> Play Again
+            </button>
+          </form>
+        </div>
+      </div>
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>
+  </main>
+  <script src="./logic.js"></script>
+  <script src="./animations.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess The Number</title>
+</head>
+<body>
+    <header>
+        <div>
+            <h2>Guess The Number</h2>
+        </div>
+        <div>
+            <input type="checkbox" class="toggle-theme">
+        </div>
+    </header>
+    <main>
+        <div>
+            <h3>
+                The Rules
+            </h3>
+            <div>
+                <ol>
+                    <li>There will be random number generated</li>
+                    <li>You will get 10 attempts to guess</li>
+                    <li>There will be hints if the number is higher or lower</li>
+                    <li>Guess the number correct and <b>WIN</b></li>
+                </ol>
+            </div>
+        </div>
+        <div id="game-container">
+            <div>
+                <input type="textarea" id="user-guess">
+                <button id="guess-submit">Guess</button>
+                <h4 id="attempt-Cont">Attempts: 0/10</h4>
+                <div id="feedback-container">
+                    <h4 id="feedback"></h4>
+                </div>
+            </div>
+            <div hidden id="result-container">
+                <h2 id="result"></h2>
+            </div>
+        </div>
+    </main>
+</body>
+<script src="./script.js"></script>
+</html>
